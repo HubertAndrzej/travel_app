@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_app/firebase_options.dart';
 import 'package:travel_app/screens/auth_screen.dart';
+import 'package:travel_app/screens/home_screen.dart';
 import 'package:travel_app/screens/splash_screen.dart';
 
 final colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 253, 105, 13),
-  background: const Color.fromARGB(255, 56, 49, 66),
+  seedColor: const Color.fromARGB(255, 255, 69, 0),
+  background: const Color.fromARGB(255, 0, 0, 0),
 );
 
 final theme = ThemeData().copyWith(
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
             return const SplashScreen();
           }
           if (snapshot.hasData) {
-            return const Text('');
+            return const HomeScreen();
           }
           return const AuthScreen();
         },
