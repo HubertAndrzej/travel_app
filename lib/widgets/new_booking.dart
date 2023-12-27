@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/screens/flight_search_screen.dart';
 
-class NewBookingScreen extends StatefulWidget {
-  const NewBookingScreen({super.key});
+class NewBooking extends StatefulWidget {
+  const NewBooking({super.key});
 
   @override
-  State<NewBookingScreen> createState() {
-    return _NewBookingScreenState();
+  State<NewBooking> createState() {
+    return _NewBookingState();
   }
 }
 
-class _NewBookingScreenState extends State<NewBookingScreen> {
+class _NewBookingState extends State<NewBooking> {
+  void _searchFlight() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => const FlightSearchScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,6 +27,14 @@ class _NewBookingScreenState extends State<NewBookingScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              margin: const EdgeInsets.all(10),
+              width: 110,
+              child: const CircleAvatar(
+                backgroundImage: AssetImage('assets/icons/logo.ico'),
+                radius: 50,
+              ),
+            ),
             Text(
               'Cześć,\nNastępna podróż?',
               style: TextStyle(
@@ -49,7 +66,7 @@ class _NewBookingScreenState extends State<NewBookingScreen> {
                     color: Theme.of(context).colorScheme.background,
                   ),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: _searchFlight,
                     child: Row(
                       children: [
                         Text(
