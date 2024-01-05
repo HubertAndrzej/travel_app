@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:travel_app/constants/date_formatter.dart';
 import 'package:travel_app/constants/travel_classes.dart';
+import 'package:travel_app/screens/home_screen.dart';
 
 class FlightSearchScreen extends StatefulWidget {
   const FlightSearchScreen({super.key});
@@ -15,8 +19,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
   final _departureController = TextEditingController();
   final _arrivalController = TextEditingController();
   DateTime? _departureDate;
-  DateTime? _arrivalDate;
+  DateTime? _returnDate;
   String _travelClassDropdown = 'Dowolna';
+  List<dynamic> _flights = [];
 
   void _departureDatePicker() async {
     final now = DateTime.now();
@@ -34,7 +39,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
     final pickedDate = await showDatePicker(
         context: context, initialDate: now, firstDate: now, lastDate: future);
     setState(() {
-      _arrivalDate = pickedDate;
+      _returnDate = pickedDate;
     });
   }
 
@@ -43,9 +48,167 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       _departureController.text = '';
       _arrivalController.text = '';
       _departureDate = null;
-      _arrivalDate = null;
+      _returnDate = null;
       _travelClassDropdown = 'Dowolna';
     });
+  }
+
+  void _submitForm() async {
+    if (_departureController.text.trim().length != 3) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Bład w polu skąd'),
+          content: const Text('Miejsce wylotu musi mieć długość trzech znaków'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+    if (_arrivalController.text.trim().length != 3) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Bład w polu dokąd'),
+          content:
+              const Text('Miejsce przylotu musi mieć długość trzech znaków'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+    if (_departureDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Bład w polu wylot'),
+          content: const Text('Nie wybrałeś daty wylotu'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+    if (_returnDate != null && _departureDate!.isAfter(_returnDate!)) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Bład w polu skąd'),
+          content: const Text(
+              'Data powrotu nie może być wcześniejsza niż data wylotu'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+    _flights = await _searchFlights();
+    _navigateNextScreen(_flights);
+  }
+
+  void _navigateNextScreen(List<dynamic> data) {
+    if (_flights.isEmpty) {
+      return;
+    }
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => const HomeScreen(),
+      ),
+    );
+  }
+
+  Future<String> _getAccessToken() async {
+    var url =
+        Uri.parse('https://test.api.amadeus.com/v1/security/oauth2/token');
+    var client = http.Client();
+    var response = await client.post(url, body: {
+      'grant_type': 'client_credentials',
+      'client_id': 'YWcVCukFQNqVOVGYAGIkO4ShJrWWtwS2',
+      'client_secret': 'LffYAS4rnxG3FrCu'
+    });
+
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      var accessToken = jsonResponse['access_token'];
+      return accessToken;
+    }
+
+    return '';
+  }
+
+  Future<List<dynamic>> _searchFlights() async {
+    String token = await _getAccessToken();
+    String auth = 'Bearer $token';
+    final headers = {'Authorization': auth};
+    const String baseUrl =
+        'https://test.api.amadeus.com/v2/shopping/flight-offers';
+
+    String generatedUrl =
+        '$baseUrl?originLocationCode=${_departureController.text.toUpperCase()}&destinationLocationCode=${_arrivalController.text.toUpperCase()}&departureDate=${_departureDate.toString().substring(0, 10)}';
+    if (_returnDate != null) {
+      generatedUrl += '&returnDate=${_returnDate.toString().substring(0, 10)}';
+    }
+    generatedUrl += '&adults=1';
+    if (_travelClassDropdown == 'Dowolna') {
+      generatedUrl += '';
+    } else if (_travelClassDropdown == 'Premium Economy') {
+      generatedUrl += '&travelClass=PREMIUM_ECONOMY';
+    } else {
+      generatedUrl += '&travelClass=${_travelClassDropdown.toUpperCase()}';
+    }
+    final Uri url = Uri.parse(generatedUrl);
+
+    final response = await http.get(url, headers: headers);
+
+    final parsedResponse = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      return parsedResponse['data'];
+    } else {
+      // ignore: use_build_context_synchronously
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Brak lotów'),
+          content: const Text('Nie znaleziono lotów z podanymi parametrami'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+      return List<dynamic>.empty();
+    }
   }
 
   @override
@@ -183,9 +346,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                     ),
                                   ),
                                   Text(
-                                    _arrivalDate == null
+                                    _returnDate == null
                                         ? '(opcjonalny)'
-                                        : formatter.format(_arrivalDate!),
+                                        : formatter.format(_returnDate!),
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
@@ -217,7 +380,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                             const SizedBox(width: 10),
                             DropdownButton(
                               dropdownColor:
-                                  Theme.of(context).colorScheme.background,
+                                  Theme.of(context).colorScheme.primary,
                               value: _travelClassDropdown,
                               onChanged: (value) {
                                 setState(() {
@@ -231,6 +394,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                   child: Text(
                                     value,
                                     style: TextStyle(
+                                      fontSize: 14,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onBackground,
@@ -253,7 +417,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                     child: const Text('Wyczyść'),
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: _submitForm,
                                     child: const Text('Szukaj'),
                                   ),
                                 ],

@@ -9,8 +9,8 @@ import 'package:travel_app/screens/splash_screen.dart';
 
 final colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 255, 69, 0),
-  background: const Color.fromARGB(255, 0, 0, 0),
+  seedColor: Colors.lightBlue,
+  background: Colors.black,
 );
 
 final theme = ThemeData().copyWith(
