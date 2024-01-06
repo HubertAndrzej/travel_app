@@ -91,6 +91,25 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       );
       return;
     }
+    if (_departureController.text == _arrivalController.text) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Bład w formularzy'),
+          content: const Text(
+              'Miejsce przylotu nie może być takie same jak miejsce wylotu'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
     if (_departureDate == null) {
       showDialog(
         context: context,
@@ -258,6 +277,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
               ),
               Card(
                 margin: const EdgeInsets.all(20),
+                color: Theme.of(context).colorScheme.background,
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
@@ -385,7 +405,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                             const SizedBox(width: 10),
                             DropdownButton(
                               dropdownColor:
-                                  Theme.of(context).colorScheme.primary,
+                                  Theme.of(context).colorScheme.background,
                               value: _travelClassDropdown,
                               onChanged: (value) {
                                 setState(() {
@@ -421,6 +441,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                     ),
                                     child: const Text('Wyczyść'),
                                   ),
+                                  const SizedBox(width: 10),
                                   ElevatedButton(
                                     onPressed: _submitForm,
                                     child: const Text('Szukaj'),

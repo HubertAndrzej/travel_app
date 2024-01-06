@@ -32,7 +32,12 @@ class FlightSelectionScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: flights.length,
         itemBuilder: (BuildContext context, int index) {
-          return FlightCard(flightData: flights[index]);
+          return FlightCard(
+            flightData: flights[index],
+            origin: origin,
+            destination: destination,
+            date: date,
+          );
         },
       ),
     );

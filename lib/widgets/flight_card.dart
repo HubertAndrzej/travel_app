@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/widgets/passenger_info.dart';
 
 class FlightCard extends StatelessWidget {
-  const FlightCard({super.key, required this.flightData});
+  const FlightCard(
+      {super.key,
+      required this.flightData,
+      required this.origin,
+      required this.destination,
+      required this.date});
 
   final Map<String, dynamic> flightData;
+  final String origin;
+  final String destination;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +96,22 @@ class FlightCard extends StatelessWidget {
       );
     }
 
+    void openPassengerNameInfo() {
+      showModalBottomSheet(
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        useSafeArea: true,
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) {
+          return PassengerInfo(
+            origin: origin,
+            destination: destination,
+            date: date,
+          );
+        },
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Card(
@@ -134,14 +159,14 @@ class FlightCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: openPassengerNameInfo,
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                         Theme.of(context).colorScheme.primaryContainer,
                       ),
                     ),
                     child: Text(
-                      'Kup',
+                      'Wybierz',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
