@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:travel_app/constants/date_formatter.dart';
 import 'package:travel_app/constants/travel_classes.dart';
-import 'package:travel_app/screens/home_screen.dart';
+import 'package:travel_app/screens/flight_selection_screen.dart';
 
 class FlightSearchScreen extends StatefulWidget {
   const FlightSearchScreen({super.key});
@@ -138,7 +138,12 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
     }
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (ctx) => const HomeScreen(),
+        builder: (ctx) => FlightSelectionScreen(
+          flights: _flights,
+          origin: _departureController.text.toUpperCase(),
+          destination: _arrivalController.text.toUpperCase(),
+          date: _departureDate.toString().toString().substring(0, 10),
+        ),
       ),
     );
   }
@@ -227,7 +232,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
           color: Theme.of(context).colorScheme.primary,
         ),
         title: Text(
-          'Wyszukaj lot...',
+          'Wyszukiwarka lotów',
           style: TextStyle(
             color: Theme.of(context).colorScheme.primary,
           ),

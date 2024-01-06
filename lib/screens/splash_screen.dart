@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
         title: const Text('go4travel'),
       ),
       body: const Center(
-        child: Text('Loading...'),
+        child: Text('Ładowanie...'),
       ),
     );
   }

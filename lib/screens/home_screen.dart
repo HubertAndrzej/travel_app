@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             children: [
               Text(
-                'Logout',
+                'Wyloguj się',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                 ),
@@ -66,13 +66,13 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(
               Icons.add,
             ),
-            label: 'New',
+            label: 'Nowa podróż',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.airplane_ticket,
             ),
-            label: 'Existing',
+            label: 'Istniejące podróże',
           ),
         ],
         selectedItemColor: Theme.of(context).colorScheme.primary,

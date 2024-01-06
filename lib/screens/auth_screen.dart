@@ -85,7 +85,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         children: [
                           TextFormField(
                             decoration: const InputDecoration(
-                              labelText: 'Email Address',
+                              labelText: 'Adres mailowy',
                             ),
                             keyboardType: TextInputType.emailAddress,
                             autocorrect: false,
@@ -97,7 +97,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               if (value == null ||
                                   value.trim().isEmpty ||
                                   !value.contains('@')) {
-                                return 'Please enter a valid email address.';
+                                return 'Proszę wpisać prawidłowy adres e-mail.';
                               }
                               return null;
                             },
@@ -105,7 +105,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           TextFormField(
                             decoration: const InputDecoration(
-                              labelText: 'Password',
+                              labelText: 'Hasło',
                             ),
                             obscureText: true,
                             style: TextStyle(
@@ -113,7 +113,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
                             validator: (value) {
                               if (value == null || value.trim().length < 6) {
-                                return 'Password must be at least 6 characters long.';
+                                return 'Hasło musi mieć conajmniej 6 znaków.';
                               }
                               return null;
                             },
@@ -129,7 +129,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                   .colorScheme
                                   .primaryContainer,
                             ),
-                            child: Text(_isLogin ? 'Login' : 'Signup'),
+                            child: Text(
+                                _isLogin ? 'Zaloguj się' : 'Zarejestruj się'),
                           ),
                           TextButton(
                             onPressed: () {
@@ -139,9 +140,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                 },
                               );
                             },
-                            child: Text(_isLogin
-                                ? 'Create an account'
-                                : 'I already have an account'),
+                            child:
+                                Text(_isLogin ? 'Nowe konto' : 'Mam już konto'),
                           ),
                         ],
                       ),
