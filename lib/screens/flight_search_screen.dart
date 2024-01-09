@@ -59,7 +59,10 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text('Bład w polu skąd'),
-          content: const Text('Miejsce wylotu musi mieć długość trzech znaków'),
+          content: Text(
+            'Miejsce wylotu musi mieć długość trzech znaków',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -77,8 +80,10 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text('Bład w polu dokąd'),
-          content:
-              const Text('Miejsce przylotu musi mieć długość trzech znaków'),
+          content: Text(
+            'Miejsce przylotu musi mieć długość trzech znaków',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -96,8 +101,10 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text('Bład w formularzy'),
-          content: const Text(
-              'Miejsce przylotu nie może być takie same jak miejsce wylotu'),
+          content: Text(
+            'Miejsce przylotu nie może być takie same jak miejsce wylotu',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -115,7 +122,10 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text('Bład w polu wylot'),
-          content: const Text('Nie wybrałeś daty wylotu'),
+          content: Text(
+            'Nie wybrałeś daty wylotu',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -133,8 +143,10 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text('Bład w polu skąd'),
-          content: const Text(
-              'Data powrotu nie może być wcześniejsza niż data wylotu'),
+          content: Text(
+            'Data powrotu nie może być wcześniejsza niż data wylotu',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
           actions: [
             TextButton(
               onPressed: () {

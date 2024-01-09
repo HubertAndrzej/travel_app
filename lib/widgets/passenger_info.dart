@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 class PassengerInfo extends StatefulWidget {
-  const PassengerInfo(
-      {super.key,
-      required this.origin,
-      required this.destination,
-      required this.date});
+  const PassengerInfo({
+    super.key,
+    required this.origin,
+    required this.destination,
+    required this.date,
+    required this.flightData,
+  });
 
   final String origin;
   final String destination;
   final String date;
+  final Map<String, dynamic> flightData;
 
   @override
   State<PassengerInfo> createState() {
@@ -40,47 +43,66 @@ class _PassengerInfoState extends State<PassengerInfo> {
 
     return Padding(
       padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
-      child: Form(
-        key: _formKey,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  label: Text('Pełne imię i nazwisko'),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Podsumowanie',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontSize: 20,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Form(
+            key: _formKey,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      label: Text('Pełne imię i nazwisko pasażera'),
+                    ),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Pole nie może być puste.';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _enteredName = value!;
+                    },
+                  ),
                 ),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                onPressed: () {
+                  _formKey.currentState!.reset();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      Theme.of(context).colorScheme.primaryContainer,
                 ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Pole nie może być puste.';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _enteredName = value!;
-                },
+                child: const Text('Wyczyść'),
               ),
-            ),
-            const SizedBox(width: 10),
-            TextButton(
-              onPressed: () {
-                _formKey.currentState!.reset();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              ElevatedButton(
+                onPressed: _payForSelectedOption,
+                child: Text(
+                    'Zapłać ${widget.flightData['price']['currency']} ${widget.flightData['price']['total']}'),
               ),
-              child: const Text('Wyczyść'),
-            ),
-            const SizedBox(width: 10),
-            ElevatedButton(
-              onPressed: _payForSelectedOption,
-              child: const Text('Zapłać'),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }
