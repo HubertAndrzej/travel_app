@@ -1,4 +1,9 @@
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:http/http.dart' as http;
 
 class PassengerInfo extends StatefulWidget {
   const PassengerInfo({
@@ -6,13 +11,15 @@ class PassengerInfo extends StatefulWidget {
     required this.origin,
     required this.destination,
     required this.date,
-    required this.flightData,
+    required this.currency,
+    required this.total,
   });
 
   final String origin;
   final String destination;
   final String date;
-  final Map<String, dynamic> flightData;
+  final String currency;
+  final String total;
 
   @override
   State<PassengerInfo> createState() {
@@ -24,16 +31,66 @@ class _PassengerInfoState extends State<PassengerInfo> {
   final _formKey = GlobalKey<FormState>();
   var _enteredName = '';
 
-  void _payForSelectedOption() {
+  void _payForSelectedOption() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (ctx) => Text(
-            _enteredName.toString(),
-          ),
+      Navigator.pop(context);
+      String? userEmail =
+          FirebaseAuth.instance.currentUser!.email ?? 'No Email';
+      double amount = double.parse(widget.total) * 100;
+      await _initPayment(
+        email: userEmail,
+        currency: widget.currency,
+        total: amount.toString(),
+      );
+    }
+  }
+
+  Future<void> _initPayment({
+    required String email,
+    required String currency,
+    required String total,
+  }) async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'https://us-central1-travel-app-93e16.cloudfunctions.net/stripePaymentIntentRequest'),
+        body: {
+          'email': email,
+          'currency': currency,
+          'total': total,
+        },
+      );
+      final jsonResponse = jsonDecode(response.body);
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: jsonResponse['paymentIntent'],
+          merchantDisplayName: 'go4travel',
+          customerId: jsonResponse['customer'],
+          customerEphemeralKeySecret: jsonResponse['ephemeralKey'],
         ),
       );
+      await Stripe.instance.presentPaymentSheet();
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Payment is successful'),
+        ),
+      );
+    } catch (error) {
+      if (error is StripeException) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('An error occured ${error.error.localizedMessage}'),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('An error occured $error'),
+          ),
+        );
+      }
     }
   }
 
@@ -97,8 +154,7 @@ class _PassengerInfoState extends State<PassengerInfo> {
               ),
               ElevatedButton(
                 onPressed: _payForSelectedOption,
-                child: Text(
-                    'Zapłać ${widget.flightData['price']['currency']} ${widget.flightData['price']['total']}'),
+                child: Text('Zapłać ${widget.currency} ${widget.total}'),
               ),
             ],
           ),

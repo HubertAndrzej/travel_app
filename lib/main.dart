@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_app/firebase_options.dart';
 import 'package:travel_app/screens/auth_screen.dart';
@@ -39,11 +40,14 @@ final theme = ThemeData().copyWith(
   ),
 );
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Stripe.publishableKey =
+      'pk_test_51OVivwLQNcm2Q8ir3pIUvZKWJKtNpK1RyVWG1wSihF7TRX9RDmAvlR1wYZG22YUJmNyhERYgilEJ5dKA1MtOtxJL00G8UrwFME';
+  await Stripe.instance.applySettings();
   runApp(
     const MyApp(),
   );

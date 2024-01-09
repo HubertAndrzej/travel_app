@@ -107,7 +107,8 @@ class FlightCard extends StatelessWidget {
             origin: origin,
             destination: destination,
             date: date,
-            flightData: flightData,
+            currency: flightData['price']['currency'],
+            total: flightData['price']['total'],
           );
         },
       );
