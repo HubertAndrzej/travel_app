@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '691311762145',
     projectId: 'travel-app-93e16',
     authDomain: 'travel-app-93e16.firebaseapp.com',
+    databaseURL: 'https://travel-app-93e16-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'travel-app-93e16.appspot.com',
     measurementId: 'G-F0W8QNC5QD',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:691311762145:android:dfb0e8188bfdf7a75db5a0',
     messagingSenderId: '691311762145',
     projectId: 'travel-app-93e16',
+    databaseURL: 'https://travel-app-93e16-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'travel-app-93e16.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:691311762145:ios:8ef9680ad6b0b8375db5a0',
     messagingSenderId: '691311762145',
     projectId: 'travel-app-93e16',
+    databaseURL: 'https://travel-app-93e16-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'travel-app-93e16.appspot.com',
     iosBundleId: 'com.example.travelApp',
   );
@@ -75,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:691311762145:ios:05a47900a3fe73945db5a0',
     messagingSenderId: '691311762145',
     projectId: 'travel-app-93e16',
+    databaseURL: 'https://travel-app-93e16-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'travel-app-93e16.appspot.com',
     iosBundleId: 'com.example.travelApp.RunnerTests',
   );

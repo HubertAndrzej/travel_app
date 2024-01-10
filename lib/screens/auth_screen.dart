@@ -42,7 +42,9 @@ class _AuthScreenState extends State<AuthScreen> {
         );
       }
     } on FirebaseAuthException catch (error) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).clearSnackBars();
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(error.message ?? 'Authentication failed.'),

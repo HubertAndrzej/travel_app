@@ -1,9 +1,13 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
+import 'package:travel_app/constants/navigator.key.dart';
+import 'package:travel_app/models/flight.dart';
 
 class PassengerInfo extends StatefulWidget {
   const PassengerInfo({
@@ -70,27 +74,95 @@ class _PassengerInfoState extends State<PassengerInfo> {
           customerEphemeralKeySecret: jsonResponse['ephemeralKey'],
         ),
       );
+      String pnr = _generatePNR();
+      Flight flight = Flight(
+          passenger: _enteredName,
+          origin: widget.origin,
+          destination: widget.destination,
+          date: widget.date,
+          currency: widget.currency,
+          total: widget.total,
+          pnr: pnr);
       await Stripe.instance.presentPaymentSheet();
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Payment is successful'),
-        ),
-      );
+      await _addDataToFirebase(flight);
     } catch (error) {
       if (error is StripeException) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('An error occured ${error.error.localizedMessage}'),
           ),
         );
       } else {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('An error occured $error'),
           ),
         );
       }
+    }
+  }
+
+  String _generatePNR() {
+    const allowedCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final random = Random();
+    String code = '';
+    for (int i = 0; i < 6; i++) {
+      code += allowedCharacters[random.nextInt(allowedCharacters.length)];
+    }
+    return code;
+  }
+
+  Future<void> _addDataToFirebase(Flight flight) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        DatabaseReference userFlightsRef = FirebaseDatabase.instance
+            .ref()
+            .child('users')
+            .child(user.uid)
+            .child('flights');
+
+        await userFlightsRef.push().set({
+          'name': flight.passenger,
+          'origin': flight.origin,
+          'destination': flight.destination,
+          'date': flight.date,
+          'currency': flight.currency,
+          'total': flight.total,
+          'pnr': flight.pnr,
+        });
+        navigatorKey.currentState?.popUntil((route) => route.isFirst);
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(navigatorKey.currentState!.context).showSnackBar(
+          SnackBar(
+            // ignore: use_build_context_synchronously
+            backgroundColor: Theme.of(navigatorKey.currentState!.context)
+                .colorScheme
+                .secondaryContainer,
+            duration: const Duration(seconds: 5),
+            content: Text(
+              'Płatność się udała i lot jest potwierdzony',
+              style: TextStyle(
+                fontSize: 20,
+                // ignore: use_build_context_synchronously
+                color: Theme.of(navigatorKey.currentState!.context)
+                    .colorScheme
+                    .onSecondaryContainer,
+              ),
+            ),
+          ),
+        );
+      }
+    } catch (error) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('An error occured $error'),
+        ),
+      );
     }
   }
 

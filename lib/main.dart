@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travel_app/constants/navigator.key.dart';
 import 'package:travel_app/firebase_options.dart';
 import 'package:travel_app/screens/auth_screen.dart';
 import 'package:travel_app/screens/home_screen.dart';
@@ -15,7 +16,6 @@ final colorScheme = ColorScheme.fromSeed(
 );
 
 final theme = ThemeData().copyWith(
-  useMaterial3: true,
   scaffoldBackgroundColor: colorScheme.background,
   colorScheme: colorScheme,
   textTheme: GoogleFonts.ubuntuCondensedTextTheme().copyWith(
@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: 'go4travel',
       theme: theme,
       home: StreamBuilder(
