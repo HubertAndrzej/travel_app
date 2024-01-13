@@ -6,6 +6,7 @@ class Flight {
   String currency;
   String total;
   String pnr;
+  List<String> segments;
 
   Flight({
     required this.passenger,
@@ -15,5 +16,6 @@ class Flight {
     required this.currency,
     required this.total,
     required this.pnr,
+    required this.segments,
   });
 }

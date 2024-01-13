@@ -10,20 +10,21 @@ import 'package:travel_app/constants/navigator.key.dart';
 import 'package:travel_app/models/flight.dart';
 
 class PassengerInfo extends StatefulWidget {
-  const PassengerInfo({
-    super.key,
-    required this.origin,
-    required this.destination,
-    required this.date,
-    required this.currency,
-    required this.total,
-  });
+  const PassengerInfo(
+      {super.key,
+      required this.origin,
+      required this.destination,
+      required this.date,
+      required this.currency,
+      required this.total,
+      required this.segments});
 
   final String origin;
   final String destination;
   final String date;
   final String currency;
   final String total;
+  final List<String> segments;
 
   @override
   State<PassengerInfo> createState() {
@@ -82,7 +83,8 @@ class _PassengerInfoState extends State<PassengerInfo> {
           date: widget.date,
           currency: widget.currency,
           total: widget.total,
-          pnr: pnr);
+          pnr: pnr,
+          segments: widget.segments);
       await Stripe.instance.presentPaymentSheet();
       await _addDataToFirebase(flight);
     } catch (error) {
@@ -133,6 +135,7 @@ class _PassengerInfoState extends State<PassengerInfo> {
           'currency': flight.currency,
           'total': flight.total,
           'pnr': flight.pnr,
+          'segments': flight.segments,
         });
         navigatorKey.currentState?.popUntil((route) => route.isFirst);
         // ignore: use_build_context_synchronously

@@ -96,6 +96,33 @@ class FlightCard extends StatelessWidget {
       );
     }
 
+    List<String> forwardFlightDetails() {
+      List<String> flightDetails = [];
+      for (var i = 0; i < itineraries.length; i++) {
+        List<dynamic> segments = itineraries[i]['segments'];
+        for (int j = 0; j < segments.length; j++) {
+          String singleFlight = '';
+          singleFlight += segments[j]['carrierCode'];
+          singleFlight += ' ';
+          singleFlight += segments[j]['number'];
+          singleFlight += '   ';
+          singleFlight += segments[j]['departure']['iataCode'];
+          singleFlight += ' - ';
+          singleFlight += segments[j]['arrival']['iataCode'];
+          singleFlight += '   ';
+          singleFlight += segments[j]['departure']['at'].substring(0, 10);
+          singleFlight += ' ';
+          singleFlight += segments[j]['departure']['at'].substring(11, 16);
+          singleFlight += ' - ';
+          singleFlight += segments[j]['arrival']['at'].substring(0, 10);
+          singleFlight += ' ';
+          singleFlight += segments[j]['arrival']['at'].substring(11, 16);
+          flightDetails.add(singleFlight);
+        }
+      }
+      return flightDetails;
+    }
+
     void openPassengerNameInfo() {
       showModalBottomSheet(
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
@@ -109,6 +136,7 @@ class FlightCard extends StatelessWidget {
             date: date,
             currency: flightData['price']['currency'],
             total: flightData['price']['total'],
+            segments: forwardFlightDetails(),
           );
         },
       );

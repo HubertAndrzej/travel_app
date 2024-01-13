@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/widgets/hotel_reservation.dart';
 import 'package:travel_app/widgets/new_booking.dart';
 
-import '../widgets/existing_itinerary.dart';
+import '../widgets/flight_ticket.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,7 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const NewBooking(),
-    const ExistingItinerary(),
+    const FlightTicket(),
+    const HotelReservation(),
   ];
 
   @override
@@ -72,7 +74,13 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(
               Icons.airplane_ticket,
             ),
-            label: 'Istniejące podróże',
+            label: 'Kupione loty',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.hotel,
+            ),
+            label: 'Zamówione hotele',
           ),
         ],
         selectedItemColor: Theme.of(context).colorScheme.primary,
