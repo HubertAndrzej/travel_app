@@ -1,13 +1,4 @@
 class Flight {
-  String passenger;
-  String origin;
-  String destination;
-  String date;
-  String currency;
-  String total;
-  String pnr;
-  List<String> segments;
-
   Flight({
     required this.passenger,
     required this.origin,
@@ -18,4 +9,13 @@ class Flight {
     required this.pnr,
     required this.segments,
   });
+
+  String passenger;
+  String origin;
+  String destination;
+  String date;
+  String currency;
+  String total;
+  String pnr;
+  List<String> segments;
 }

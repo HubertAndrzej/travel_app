@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
@@ -117,17 +116,17 @@ class _PassengerInfoState extends State<PassengerInfo> {
   }
 
   Future<void> _addDataToFirebase(Flight flight) async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
+    User user = FirebaseAuth.instance.currentUser!;
 
-      if (user != null) {
-        DatabaseReference userFlightsRef = FirebaseDatabase.instance
-            .ref()
-            .child('users')
-            .child(user.uid)
-            .child('flights');
+    final url = Uri.https(
+        'travel-app-93e16-default-rtdb.europe-west1.firebasedatabase.app',
+        'users/${user.uid}/flights.json');
 
-        await userFlightsRef.push().set({
+    await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(
+        {
           'name': flight.passenger,
           'origin': flight.origin,
           'destination': flight.destination,
@@ -136,34 +135,30 @@ class _PassengerInfoState extends State<PassengerInfo> {
           'total': flight.total,
           'pnr': flight.pnr,
           'segments': flight.segments,
-        });
-        navigatorKey.currentState?.popUntil((route) => route.isFirst);
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(navigatorKey.currentState!.context).showSnackBar(
-          SnackBar(
-            // ignore: use_build_context_synchronously
-            backgroundColor: Theme.of(navigatorKey.currentState!.context)
-                .colorScheme
-                .secondaryContainer,
-            duration: const Duration(seconds: 5),
-            content: Text(
-              'Płatność się udała i lot jest potwierdzony',
-              style: TextStyle(
-                fontSize: 20,
-                // ignore: use_build_context_synchronously
-                color: Theme.of(navigatorKey.currentState!.context)
-                    .colorScheme
-                    .onSecondaryContainer,
-              ),
+        },
+      ),
+    );
+
+    if (!mounted) {
+      navigatorKey.currentState?.popUntil((route) => route.isFirst);
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(navigatorKey.currentState!.context).showSnackBar(
+        SnackBar(
+          // ignore: use_build_context_synchronously
+          backgroundColor: Theme.of(navigatorKey.currentState!.context)
+              .colorScheme
+              .secondaryContainer,
+          duration: const Duration(seconds: 5),
+          content: Text(
+            'Płatność się udała i lot jest potwierdzony',
+            style: TextStyle(
+              fontSize: 20,
+              // ignore: use_build_context_synchronously
+              color: Theme.of(navigatorKey.currentState!.context)
+                  .colorScheme
+                  .onSecondaryContainer,
             ),
           ),
-        );
-      }
-    } catch (error) {
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('An error occured $error'),
         ),
       );
     }
