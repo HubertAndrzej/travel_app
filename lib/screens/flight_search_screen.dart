@@ -24,6 +24,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
   DateTime? _returnDate;
   String _travelClassDropdown = 'Dowolna';
   List<dynamic> _flights = [];
+  bool _isSubmitting = false;
 
   void _departureDatePicker() async {
     FocusScope.of(context).unfocus();
@@ -60,10 +61,14 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
 
   void _submitForm() async {
     FocusScope.of(context).unfocus();
+    setState(() {
+      _isSubmitting = true;
+    });
     if (_departureController.text.trim().length != 3) {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: const Text('Bład w polu skąd'),
           content: Text(
             'Miejsce wylotu musi mieć długość trzech znaków',
@@ -73,6 +78,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
+                setState(() {
+                  _isSubmitting = false;
+                });
               },
               child: const Text('Ok'),
             ),
@@ -85,6 +93,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: const Text('Bład w polu dokąd'),
           content: Text(
             'Miejsce przylotu musi mieć długość trzech znaków',
@@ -94,6 +103,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
+                setState(() {
+                  _isSubmitting = false;
+                });
               },
               child: const Text('Ok'),
             ),
@@ -106,6 +118,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: const Text('Bład w formularzy'),
           content: Text(
             'Miejsce przylotu nie może być takie same jak miejsce wylotu',
@@ -115,6 +128,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
+                setState(() {
+                  _isSubmitting = false;
+                });
               },
               child: const Text('Ok'),
             ),
@@ -127,6 +143,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: const Text('Bład w polu wylot'),
           content: Text(
             'Nie wybrałeś daty wylotu',
@@ -136,6 +153,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
+                setState(() {
+                  _isSubmitting = false;
+                });
               },
               child: const Text('Ok'),
             ),
@@ -148,6 +168,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: const Text('Bład w polu skąd'),
           content: Text(
             'Data powrotu nie może być wcześniejsza niż data wylotu',
@@ -157,6 +178,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
+                setState(() {
+                  _isSubmitting = false;
+                });
               },
               child: const Text('Ok'),
             ),
@@ -166,6 +190,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       return;
     }
     _flights = await _searchFlights();
+    setState(() {
+      _isSubmitting = false;
+    });
     _navigateNextScreen(_flights);
   }
 
@@ -460,18 +487,34 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     TextButton(
-                                      onPressed: _clearForm,
+                                      onPressed:
+                                          _isSubmitting ? null : _clearForm,
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Theme.of(context)
                                             .colorScheme
                                             .primaryContainer,
                                       ),
-                                      child: const Text('Wyczyść'),
+                                      child: _isSubmitting
+                                          ? const SizedBox(
+                                              height: 16,
+                                              width: 16,
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            )
+                                          : const Text('Wyczyść'),
                                     ),
                                     const SizedBox(width: 10),
                                     ElevatedButton(
-                                      onPressed: _submitForm,
-                                      child: const Text('Szukaj'),
+                                      onPressed:
+                                          _isSubmitting ? null : _submitForm,
+                                      child: _isSubmitting
+                                          ? const SizedBox(
+                                              height: 16,
+                                              width: 16,
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            )
+                                          : const Text('Szukaj'),
                                     ),
                                   ],
                                 ),
