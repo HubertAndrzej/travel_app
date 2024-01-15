@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       title: 'go4travel',
       theme: theme,
+      debugShowCheckedModeBanner: false,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, snapshot) {

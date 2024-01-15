@@ -102,7 +102,7 @@ class _FlightTicketState extends State<FlightTicket> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Passenger: ${flight.passenger}',
+              'Imię pasażera: ${flight.passenger}',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontSize: 16,
@@ -110,21 +110,21 @@ class _FlightTicketState extends State<FlightTicket> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Loty',
-              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              'Loty:',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 16,
+              ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             buildSegmentWidget(flight.segments),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                'Cena:  ${flight.currency} ${flight.total}',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+            const SizedBox(height: 16),
+            Text(
+              'Cena:  ${flight.currency} ${flight.total}',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
               ),
             ),
           ],
