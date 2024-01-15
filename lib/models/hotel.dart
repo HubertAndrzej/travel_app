@@ -1,17 +1,19 @@
 class Hotel {
-  String passenger;
+  String host;
   String city;
-  String date;
+  String checkInDate;
+  String checkOutDate;
   String currency;
   String total;
-  String pnr;
+  String confirmation;
 
   Hotel({
-    required this.passenger,
+    required this.host,
     required this.city,
-    required this.date,
+    required this.checkInDate,
+    required this.checkOutDate,
     required this.currency,
     required this.total,
-    required this.pnr,
+    required this.confirmation,
   });
 }

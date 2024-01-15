@@ -3,59 +3,53 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:travel_app/constants/date_formatter.dart';
-import 'package:travel_app/constants/travel_classes.dart';
-import 'package:travel_app/screens/flight_selection_screen.dart';
+import 'package:travel_app/screens/hotel_selection_screen.dart';
 
-class FlightSearchScreen extends StatefulWidget {
-  const FlightSearchScreen({super.key});
+class HotelSearchScreen extends StatefulWidget {
+  const HotelSearchScreen({super.key});
 
   @override
-  State<FlightSearchScreen> createState() {
-    return _FlightSearchScreenState();
+  State<HotelSearchScreen> createState() {
+    return _HotelSearchScreenState();
   }
 }
 
-class _FlightSearchScreenState extends State<FlightSearchScreen> {
-  final _departureController = TextEditingController();
-  final _arrivalController = TextEditingController();
-  final FocusNode _departureFocus = FocusNode();
-  final FocusNode _arrivalFocus = FocusNode();
-  DateTime? _departureDate;
-  DateTime? _returnDate;
-  String _travelClassDropdown = 'Dowolna';
-  List<dynamic> _flights = [];
+class _HotelSearchScreenState extends State<HotelSearchScreen> {
+  final _cityController = TextEditingController();
+  final FocusNode _cityFocus = FocusNode();
+  DateTime? _checkInDate;
+  DateTime? _checkOutDate;
+  List<dynamic> _hotels = [];
   bool _isSubmitting = false;
 
-  void _departureDatePicker() async {
+  void _checkInDatePicker() async {
     FocusScope.of(context).unfocus();
     final now = DateTime.now();
     final future = DateTime(now.year + 1, now.month, now.day);
     final pickedDate = await showDatePicker(
         context: context, initialDate: now, firstDate: now, lastDate: future);
     setState(() {
-      _departureDate = pickedDate;
+      _checkInDate = pickedDate;
     });
   }
 
-  void _arrivalDatePicker() async {
+  void _checkOutDatePicker() async {
     FocusScope.of(context).unfocus();
     final now = DateTime.now();
     final future = DateTime(now.year + 1, now.month, now.day);
     final pickedDate = await showDatePicker(
         context: context, initialDate: now, firstDate: now, lastDate: future);
     setState(() {
-      _returnDate = pickedDate;
+      _checkOutDate = pickedDate;
     });
   }
 
   void _clearForm() {
     FocusScope.of(context).unfocus();
     setState(() {
-      _departureController.text = '';
-      _arrivalController.text = '';
-      _departureDate = null;
-      _returnDate = null;
-      _travelClassDropdown = 'Dowolna';
+      _cityController.text = '';
+      _checkInDate = null;
+      _checkOutDate = null;
     });
   }
 
@@ -64,17 +58,17 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
     setState(() {
       _isSubmitting = true;
     });
-    if (_departureController.text.trim().length != 3) {
+    if (_cityController.text.trim().length != 3) {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.background,
           title: Text(
-            'Bład w polu skąd',
+            'Bład w polu miasto',
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
           content: Text(
-            'Miejsce wylotu musi mieć długość trzech znaków',
+            'Miasto musi mieć długość trzech znaków',
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
           actions: [
@@ -92,17 +86,17 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       );
       return;
     }
-    if (_arrivalController.text.trim().length != 3) {
+    if (_checkInDate == null) {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.background,
           title: Text(
-            'Bład w polu dokąd',
+            'Bład w polu od',
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
           content: Text(
-            'Miejsce przylotu musi mieć długość trzech znaków',
+            'Nie wybrałeś daty zameldowania',
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
           actions: [
@@ -120,17 +114,17 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       );
       return;
     }
-    if (_departureController.text == _arrivalController.text) {
+    if (_checkInDate == null) {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.background,
           title: Text(
-            'Bład w formularzu',
+            'Bład w polu do',
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
           content: Text(
-            'Miejsce przylotu nie może być takie same jak miejsce wylotu',
+            'Nie wybrałeś daty wymeldowania',
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
           actions: [
@@ -148,35 +142,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       );
       return;
     }
-    if (_departureDate == null) {
-      showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          title: Text(
-            'Bład w polu wylot',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
-          ),
-          content: Text(
-            'Nie wybrałeś daty wylotu',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(ctx);
-                setState(() {
-                  _isSubmitting = false;
-                });
-              },
-              child: const Text('Ok'),
-            ),
-          ],
-        ),
-      );
-      return;
-    }
-    if (_returnDate != null && _departureDate!.isAfter(_returnDate!)) {
+    if (_checkInDate!.isAfter(_checkOutDate!)) {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
@@ -186,7 +152,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
           content: Text(
-            'Data powrotu nie może być wcześniejsza niż data wylotu',
+            'Data wymeldowania nie może być wcześniejsza niż data zameldowania',
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
           actions: [
@@ -204,24 +170,24 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       );
       return;
     }
-    _flights = await _searchFlights();
+    _hotels = await _searchHotels();
     setState(() {
       _isSubmitting = false;
     });
-    _navigateNextScreen(_flights);
+    _navigateNextScreen(_hotels);
   }
 
   void _navigateNextScreen(List<dynamic> data) {
-    if (_flights.isEmpty) {
+    if (_hotels.isEmpty) {
       return;
     }
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (ctx) => FlightSelectionScreen(
-          flights: _flights,
-          origin: _departureController.text.toUpperCase(),
-          destination: _arrivalController.text.toUpperCase(),
-          date: _departureDate.toString().toString().substring(0, 10),
+        builder: (ctx) => HotelSelectionScreen(
+          hotels: _hotels,
+          city: _cityController.text.toUpperCase(),
+          checkInDate: _checkInDate.toString().toString().substring(0, 10),
+          checkOutDate: _checkOutDate.toString().toString().substring(0, 10),
         ),
       ),
     );
@@ -246,28 +212,15 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
     return '';
   }
 
-  Future<List<dynamic>> _searchFlights() async {
+  Future<List<dynamic>> _searchHotels() async {
     String token = await _getAccessToken();
     String auth = 'Bearer $token';
     final headers = {'Authorization': auth};
     const String baseUrl =
-        'https://test.api.amadeus.com/v2/shopping/flight-offers';
-
+        'https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city';
     String generatedUrl =
-        '$baseUrl?originLocationCode=${_departureController.text.toUpperCase()}&destinationLocationCode=${_arrivalController.text.toUpperCase()}&departureDate=${_departureDate.toString().substring(0, 10)}';
-    if (_returnDate != null) {
-      generatedUrl += '&returnDate=${_returnDate.toString().substring(0, 10)}';
-    }
-    generatedUrl += '&adults=1';
-    if (_travelClassDropdown == 'Dowolna') {
-      generatedUrl += '';
-    } else if (_travelClassDropdown == 'Premium Economy') {
-      generatedUrl += '&travelClass=PREMIUM_ECONOMY';
-    } else {
-      generatedUrl += '&travelClass=${_travelClassDropdown.toUpperCase()}';
-    }
+        '$baseUrl?cityCode=${_cityController.text.toUpperCase()}';
     final Uri url = Uri.parse(generatedUrl);
-
     final response = await http.get(url, headers: headers);
 
     final parsedResponse = json.decode(response.body);
@@ -279,13 +232,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          title: Text(
-            'Brak lotów',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
-          ),
+          title: const Text('Brak hoteli'),
           content: Text(
-            'Nie znaleziono lotów z podanymi parametrami',
+            'Nie znaleziono hoteli z podanymi parametrami',
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
           actions: [
@@ -304,10 +253,8 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
 
   @override
   void dispose() {
-    _departureController.dispose();
-    _arrivalController.dispose();
-    _departureFocus.dispose();
-    _arrivalFocus.dispose();
+    _cityController.dispose();
+    _cityFocus.dispose();
     super.dispose();
   }
 
@@ -322,7 +269,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
             color: Theme.of(context).colorScheme.primary,
           ),
           title: Text(
-            'Wyszukiwarka lotów',
+            'Wyszukiwarka hoteli',
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
             ),
@@ -354,48 +301,18 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  focusNode: _departureFocus,
-                                  controller: _departureController,
-                                  maxLength: 3,
-                                  keyboardType: TextInputType.text,
-                                  textCapitalization:
-                                      TextCapitalization.characters,
-                                  style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground,
-                                  ),
-                                  decoration: const InputDecoration(
-                                    labelText: 'Skąd',
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 60,
-                              ),
-                              Expanded(
-                                child: TextField(
-                                  focusNode: _arrivalFocus,
-                                  controller: _arrivalController,
-                                  maxLength: 3,
-                                  keyboardType: TextInputType.text,
-                                  textCapitalization:
-                                      TextCapitalization.characters,
-                                  style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground,
-                                  ),
-                                  decoration: const InputDecoration(
-                                    labelText: 'Dokąd',
-                                  ),
-                                ),
-                              ),
-                            ],
+                          TextField(
+                            focusNode: _cityFocus,
+                            controller: _cityController,
+                            maxLength: 3,
+                            keyboardType: TextInputType.text,
+                            textCapitalization: TextCapitalization.characters,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onBackground,
+                            ),
+                            decoration: const InputDecoration(
+                              labelText: 'Miasto',
+                            ),
                           ),
                           const SizedBox(height: 10),
                           Row(
@@ -404,7 +321,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      'Wylot: ',
+                                      'Od: ',
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -412,9 +329,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                       ),
                                     ),
                                     Text(
-                                      _departureDate == null
-                                          ? '(wymagany)'
-                                          : formatter.format(_departureDate!),
+                                      _checkInDate == null
+                                          ? '(wymagane)'
+                                          : formatter.format(_checkInDate!),
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -425,7 +342,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onBackground,
-                                      onPressed: _departureDatePicker,
+                                      onPressed: _checkInDatePicker,
                                       icon: const Icon(Icons.calendar_month),
                                     ),
                                   ],
@@ -436,7 +353,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      'Powrót: ',
+                                      'Do: ',
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -444,9 +361,9 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                       ),
                                     ),
                                     Text(
-                                      _returnDate == null
-                                          ? '(opcjonalny)'
-                                          : formatter.format(_returnDate!),
+                                      _checkOutDate == null
+                                          ? '(wymagane)'
+                                          : formatter.format(_checkOutDate!),
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -457,7 +374,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onBackground,
-                                      onPressed: _arrivalDatePicker,
+                                      onPressed: _checkOutDatePicker,
                                       icon: const Icon(Icons.calendar_month),
                                     ),
                                   ],
@@ -468,39 +385,6 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                           const SizedBox(height: 10),
                           Row(
                             children: [
-                              Text(
-                                'Klasa: ',
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground),
-                              ),
-                              const SizedBox(width: 10),
-                              DropdownButton(
-                                dropdownColor:
-                                    Theme.of(context).colorScheme.background,
-                                value: _travelClassDropdown,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _travelClassDropdown = value!;
-                                  });
-                                },
-                                items: travelClasses
-                                    .map<DropdownMenuItem>((value) {
-                                  return DropdownMenuItem(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onBackground,
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
                               Expanded(
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/screens/flight_search_screen.dart';
+import 'package:travel_app/screens/hotel_search_screen.dart';
 
 class NewBooking extends StatefulWidget {
   const NewBooking({super.key});
@@ -15,6 +16,14 @@ class _NewBookingState extends State<NewBooking> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => const FlightSearchScreen(),
+      ),
+    );
+  }
+
+  void _searchHotel() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => const HotelSearchScreen(),
       ),
     );
   }
@@ -113,7 +122,7 @@ class _NewBookingState extends State<NewBooking> {
                       color: Theme.of(context).colorScheme.background,
                     ),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: _searchHotel,
                       child: Row(
                         children: [
                           Text(
