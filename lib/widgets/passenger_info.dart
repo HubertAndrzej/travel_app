@@ -127,7 +127,7 @@ class _PassengerInfoState extends State<PassengerInfo> {
       headers: {'Content-Type': 'application/json'},
       body: json.encode(
         {
-          'name': flight.passenger,
+          'passenger': flight.passenger,
           'origin': flight.origin,
           'destination': flight.destination,
           'date': flight.date,
