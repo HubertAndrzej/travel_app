@@ -142,6 +142,34 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
       );
       return;
     }
+    if (_checkInDate! == _checkOutDate!) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          title: Text(
+            'Bład w formularzu',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
+          content: Text(
+            'Data wymeldowania nie może być taka sama jak data zameldowania',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+                setState(() {
+                  _isSubmitting = false;
+                });
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
     if (_checkInDate!.isAfter(_checkOutDate!)) {
       showDialog(
         context: context,
@@ -232,7 +260,11 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('Brak hoteli'),
+          backgroundColor: Theme.of(context).colorScheme.background,
+          title: Text(
+            'Brak hoteli',
+            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
           content: Text(
             'Nie znaleziono hoteli z podanymi parametrami',
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
