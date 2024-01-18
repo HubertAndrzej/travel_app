@@ -62,14 +62,14 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
             'Bład w polu miasto',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
             'Miasto musi mieć długość trzech znaków',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
             TextButton(
@@ -79,7 +79,10 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                   _isSubmitting = false;
                 });
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(color: Theme.of(context).colorScheme.onError),
+              ),
             ),
           ],
         ),
@@ -90,14 +93,14 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
             'Bład w polu od',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
             'Nie wybrałeś daty zameldowania',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
             TextButton(
@@ -107,7 +110,10 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                   _isSubmitting = false;
                 });
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(color: Theme.of(context).colorScheme.onError),
+              ),
             ),
           ],
         ),
@@ -118,14 +124,14 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
             'Bład w polu do',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
             'Nie wybrałeś daty wymeldowania',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
             TextButton(
@@ -135,7 +141,10 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                   _isSubmitting = false;
                 });
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(color: Theme.of(context).colorScheme.onError),
+              ),
             ),
           ],
         ),
@@ -146,14 +155,14 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
             'Bład w formularzu',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
             'Data wymeldowania nie może być taka sama jak data zameldowania',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
             TextButton(
@@ -163,7 +172,10 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                   _isSubmitting = false;
                 });
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(color: Theme.of(context).colorScheme.onError),
+              ),
             ),
           ],
         ),
@@ -174,14 +186,14 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
             'Bład w formularzu',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
             'Data wymeldowania nie może być wcześniejsza niż data zameldowania',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
             TextButton(
@@ -191,7 +203,10 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                   _isSubmitting = false;
                 });
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(color: Theme.of(context).colorScheme.onError),
+              ),
             ),
           ],
         ),
@@ -260,21 +275,27 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: Text(
             'Brak hoteli',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer),
           ),
           content: Text(
             'Nie znaleziono hoteli z podanymi parametrami',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer),
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer),
+              ),
             ),
           ],
         ),
@@ -327,7 +348,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                 ),
                 Card(
                   margin: const EdgeInsets.all(20),
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(16),
@@ -340,7 +361,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                             keyboardType: TextInputType.text,
                             textCapitalization: TextCapitalization.characters,
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.onBackground,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer,
                             ),
                             decoration: const InputDecoration(
                               labelText: 'Miasto',
@@ -357,7 +380,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onBackground,
+                                            .onSecondaryContainer,
                                       ),
                                     ),
                                     Text(
@@ -367,13 +390,13 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onBackground,
+                                            .onSecondaryContainer,
                                       ),
                                     ),
                                     IconButton(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground,
+                                          .onSecondaryContainer,
                                       onPressed: _checkInDatePicker,
                                       icon: const Icon(Icons.calendar_month),
                                     ),
@@ -389,7 +412,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onBackground,
+                                            .onSecondaryContainer,
                                       ),
                                     ),
                                     Text(
@@ -399,13 +422,13 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onBackground,
+                                            .onSecondaryContainer,
                                       ),
                                     ),
                                     IconButton(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground,
+                                          .onSecondaryContainer,
                                       onPressed: _checkOutDatePicker,
                                       icon: const Icon(Icons.calendar_month),
                                     ),
@@ -419,7 +442,8 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                             children: [
                               Expanded(
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     TextButton(
                                       onPressed:
@@ -427,29 +451,50 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Theme.of(context)
                                             .colorScheme
-                                            .primaryContainer,
+                                            .errorContainer,
                                       ),
                                       child: _isSubmitting
                                           ? const SizedBox(
                                               height: 16,
                                               width: 16,
-                                              child:
-                                                  CircularProgressIndicator(),
                                             )
-                                          : const Text('Wyczyść'),
+                                          : Text(
+                                              'Wyczyść',
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onErrorContainer,
+                                              ),
+                                            ),
                                     ),
                                     const SizedBox(width: 10),
                                     ElevatedButton(
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                          Theme.of(context).colorScheme.primary,
+                                        ),
+                                      ),
                                       onPressed:
                                           _isSubmitting ? null : _submitForm,
                                       child: _isSubmitting
-                                          ? const SizedBox(
+                                          ? SizedBox(
                                               height: 16,
                                               width: 16,
-                                              child:
-                                                  CircularProgressIndicator(),
+                                              child: CircularProgressIndicator(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimary,
+                                              ),
                                             )
-                                          : const Text('Szukaj'),
+                                          : Text(
+                                              'Szukaj',
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimary,
+                                              ),
+                                            ),
                                     ),
                                   ],
                                 ),

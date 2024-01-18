@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {

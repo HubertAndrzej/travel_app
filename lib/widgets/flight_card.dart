@@ -35,7 +35,9 @@ class FlightCard extends StatelessWidget {
                         child: Text(
                           'Linia: ${segments[i]['carrierCode']}',
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
                           ),
                         ),
                       ),
@@ -43,7 +45,9 @@ class FlightCard extends StatelessWidget {
                         child: Text(
                           'Numer: ${segments[i]['number']}',
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
                           ),
                         ),
                       ),
@@ -55,7 +59,9 @@ class FlightCard extends StatelessWidget {
                         child: Text(
                           'Od: ${segments[i]['departure']['iataCode']}',
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
                           ),
                         ),
                       ),
@@ -63,7 +69,9 @@ class FlightCard extends StatelessWidget {
                         child: Text(
                           'Do: ${segments[i]['arrival']['iataCode']}',
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
                           ),
                         ),
                       ),
@@ -75,7 +83,9 @@ class FlightCard extends StatelessWidget {
                         child: Text(
                           'Wylot: ${segments[i]['departure']['at'].substring(0, 10)} ${segments[i]['departure']['at'].substring(11, 16)}',
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
                           ),
                         ),
                       ),
@@ -83,7 +93,9 @@ class FlightCard extends StatelessWidget {
                         child: Text(
                           'Przylot: ${segments[i]['arrival']['at'].substring(0, 10)} ${segments[i]['arrival']['at'].substring(11, 16)}',
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
                           ),
                         ),
                       ),
@@ -109,7 +121,7 @@ class FlightCard extends StatelessWidget {
           singleFlight += segments[j]['departure']['iataCode'];
           singleFlight += ' - ';
           singleFlight += segments[j]['arrival']['iataCode'];
-          singleFlight += '   ';
+          singleFlight += '\n';
           singleFlight += segments[j]['departure']['at'].substring(0, 10);
           singleFlight += ' ';
           singleFlight += segments[j]['departure']['at'].substring(11, 16);
@@ -125,7 +137,7 @@ class FlightCard extends StatelessWidget {
 
     void openPassengerNameInfo() {
       showModalBottomSheet(
-        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         useSafeArea: true,
         isScrollControlled: true,
         context: context,
@@ -145,6 +157,7 @@ class FlightCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Card(
+        color: Theme.of(context).colorScheme.onPrimary,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -155,7 +168,7 @@ class FlightCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
               ),
             ),
@@ -166,7 +179,7 @@ class FlightCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
               ),
             ),
@@ -179,7 +192,7 @@ class FlightCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
               ),
             ),

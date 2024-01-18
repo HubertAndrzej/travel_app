@@ -64,12 +64,13 @@ class _HotelReservationState extends State<HotelReservation> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         title: Center(
           child: Text(
             'Informacje',
             style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -79,7 +80,7 @@ class _HotelReservationState extends State<HotelReservation> {
             Text(
               'Imię gościa: ${hotel.host}',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontSize: 16,
               ),
             ),
@@ -87,7 +88,7 @@ class _HotelReservationState extends State<HotelReservation> {
             Text(
               'Numer rezerwacji: ${hotel.confirmation}',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontSize: 16,
               ),
             ),
@@ -95,7 +96,7 @@ class _HotelReservationState extends State<HotelReservation> {
             Text(
               'Miasto: ${hotel.city}',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontSize: 16,
               ),
             ),
@@ -103,14 +104,14 @@ class _HotelReservationState extends State<HotelReservation> {
             Text(
               'Nazwa hotelu:',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontSize: 16,
               ),
             ),
             Text(
               hotel.hotelName,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontSize: 16,
               ),
             ),
@@ -118,7 +119,7 @@ class _HotelReservationState extends State<HotelReservation> {
             Text(
               'Typ pokoju: ${hotel.roomType}',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontSize: 16,
               ),
             ),
@@ -126,7 +127,7 @@ class _HotelReservationState extends State<HotelReservation> {
             Text(
               'Od ${hotel.checkInDate} do ${hotel.checkOutDate}',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontSize: 16,
               ),
             ),
@@ -136,17 +137,29 @@ class _HotelReservationState extends State<HotelReservation> {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
             ),
           ],
         ),
         actions: [
-          TextButton(
+          ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
             },
-            child: const Text('Ok'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            child: Text(
+              'Ok',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+            ),
           ),
         ],
       ),
@@ -161,14 +174,14 @@ class _HotelReservationState extends State<HotelReservation> {
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.onPrimary,
+          color: Theme.of(context).colorScheme.onSecondaryContainer,
         ),
       ),
     );
     if (_isLoading) {
       content = Center(
         child: CircularProgressIndicator(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: Theme.of(context).colorScheme.onSecondaryContainer,
         ),
       );
     }
@@ -179,6 +192,7 @@ class _HotelReservationState extends State<HotelReservation> {
           return Padding(
             padding: const EdgeInsets.all(8),
             child: Card(
+              color: Theme.of(context).colorScheme.onPrimary,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -189,7 +203,8 @@ class _HotelReservationState extends State<HotelReservation> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
                       ),
                     ),
                   ),
@@ -212,7 +227,7 @@ class _HotelReservationState extends State<HotelReservation> {
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context)
                                   .colorScheme
-                                  .onPrimaryContainer,
+                                  .onSecondaryContainer,
                             ),
                           ),
                         ),

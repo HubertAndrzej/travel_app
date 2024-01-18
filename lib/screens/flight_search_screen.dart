@@ -68,14 +68,14 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
             'Bład w polu skąd',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
             'Miejsce wylotu musi mieć długość trzech znaków',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
             TextButton(
@@ -85,7 +85,12 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                   _isSubmitting = false;
                 });
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onError,
+                ),
+              ),
             ),
           ],
         ),
@@ -96,14 +101,14 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
             'Bład w polu dokąd',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
             'Miejsce przylotu musi mieć długość trzech znaków',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
             TextButton(
@@ -113,7 +118,12 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                   _isSubmitting = false;
                 });
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onError,
+                ),
+              ),
             ),
           ],
         ),
@@ -124,14 +134,14 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
             'Bład w formularzu',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
             'Miejsce przylotu nie może być takie same jak miejsce wylotu',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
             TextButton(
@@ -141,7 +151,12 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                   _isSubmitting = false;
                 });
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onError,
+                ),
+              ),
             ),
           ],
         ),
@@ -152,14 +167,14 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
             'Bład w polu wylot',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
             'Nie wybrałeś daty wylotu',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
             TextButton(
@@ -169,7 +184,12 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                   _isSubmitting = false;
                 });
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onError,
+                ),
+              ),
             ),
           ],
         ),
@@ -180,14 +200,14 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
             'Bład w formularzu',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
             'Data powrotu nie może być wcześniejsza niż data wylotu',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
             TextButton(
@@ -197,7 +217,12 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                   _isSubmitting = false;
                 });
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onError,
+                ),
+              ),
             ),
           ],
         ),
@@ -279,21 +304,28 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: Text(
             'Brak lotów',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer),
           ),
           content: Text(
             'Nie znaleziono lotów z podanymi parametrami',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer),
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
+              ),
             ),
           ],
         ),
@@ -348,7 +380,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                 ),
                 Card(
                   margin: const EdgeInsets.all(20),
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(16),
@@ -367,7 +399,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .onBackground,
+                                        .onSecondaryContainer,
                                   ),
                                   decoration: const InputDecoration(
                                     labelText: 'Skąd',
@@ -388,7 +420,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .onBackground,
+                                        .onSecondaryContainer,
                                   ),
                                   decoration: const InputDecoration(
                                     labelText: 'Dokąd',
@@ -408,9 +440,38 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onBackground,
+                                            .onSecondaryContainer,
                                       ),
                                     ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 60,
+                              ),
+                              Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Powrót: ',
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondaryContainer,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  children: [
                                     Text(
                                       _departureDate == null
                                           ? '(wymagany)'
@@ -418,31 +479,26 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onBackground,
+                                            .onSecondaryContainer,
                                       ),
                                     ),
                                     IconButton(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground,
+                                          .onSecondaryContainer,
                                       onPressed: _departureDatePicker,
                                       icon: const Icon(Icons.calendar_month),
                                     ),
                                   ],
                                 ),
                               ),
+                              const SizedBox(
+                                width: 60,
+                              ),
                               Expanded(
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Powrót: ',
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onBackground,
-                                      ),
-                                    ),
                                     Text(
                                       _returnDate == null
                                           ? '(opcjonalny)'
@@ -450,13 +506,13 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                                       style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onBackground,
+                                            .onSecondaryContainer,
                                       ),
                                     ),
                                     IconButton(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground,
+                                          .onSecondaryContainer,
                                       onPressed: _arrivalDatePicker,
                                       icon: const Icon(Icons.calendar_month),
                                     ),
@@ -468,75 +524,97 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
                           const SizedBox(height: 10),
                           Row(
                             children: [
-                              Text(
-                                'Klasa: ',
-                                style: TextStyle(
+                              Expanded(
+                                child: Text(
+                                  'Klasa: ',
+                                  style: TextStyle(
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .onBackground),
-                              ),
-                              const SizedBox(width: 10),
-                              DropdownButton(
-                                dropdownColor:
-                                    Theme.of(context).colorScheme.background,
-                                value: _travelClassDropdown,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _travelClassDropdown = value!;
-                                  });
-                                },
-                                items: travelClasses
-                                    .map<DropdownMenuItem>((value) {
-                                  return DropdownMenuItem(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onBackground,
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
+                                        .onSecondaryContainer,
+                                  ),
+                                ),
                               ),
                               Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    TextButton(
-                                      onPressed:
-                                          _isSubmitting ? null : _clearForm,
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .primaryContainer,
+                                child: DropdownButton(
+                                  dropdownColor: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                  value: _travelClassDropdown,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _travelClassDropdown = value!;
+                                    });
+                                  },
+                                  items: travelClasses
+                                      .map<DropdownMenuItem>((value) {
+                                    return DropdownMenuItem(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondaryContainer,
+                                        ),
                                       ),
-                                      child: _isSubmitting
-                                          ? const SizedBox(
-                                              height: 16,
-                                              width: 16,
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            )
-                                          : const Text('Wyczyść'),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    ElevatedButton(
-                                      onPressed:
-                                          _isSubmitting ? null : _submitForm,
-                                      child: _isSubmitting
-                                          ? const SizedBox(
-                                              height: 16,
-                                              width: 16,
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            )
-                                          : const Text('Szukaj'),
-                                    ),
-                                  ],
+                                    );
+                                  }).toList(),
                                 ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton(
+                                onPressed: _isSubmitting ? null : _clearForm,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .errorContainer,
+                                ),
+                                child: _isSubmitting
+                                    ? const SizedBox(
+                                        height: 16,
+                                        width: 16,
+                                      )
+                                    : Text(
+                                        'Wyczyść',
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onErrorContainer,
+                                        ),
+                                      ),
+                              ),
+                              const SizedBox(width: 10),
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                    Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                                onPressed: _isSubmitting ? null : _submitForm,
+                                child: _isSubmitting
+                                    ? SizedBox(
+                                        height: 16,
+                                        width: 16,
+                                        child: CircularProgressIndicator(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary,
+                                        ),
+                                      )
+                                    : Text(
+                                        'Szukaj',
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary,
+                                        ),
+                                      ),
                               ),
                             ],
                           ),

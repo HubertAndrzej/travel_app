@@ -74,21 +74,27 @@ class _HotelCardState extends State<HotelCard> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: Text(
             'Hotel niedostępny w twoich datach',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer),
           ),
           content: Text(
             'Wybierz inny hotel lub zmień daty',
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer),
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
               },
-              child: const Text('Ok'),
+              child: Text(
+                'Ok',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer),
+              ),
             ),
           ],
         ),
@@ -104,19 +110,22 @@ class _HotelCardState extends State<HotelCard> {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Card(
+        color: Theme.of(context).colorScheme.onPrimary,
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(
-                    widget.hotelData['name'].toString(),
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(
+                      widget.hotelData['name'].toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
                     ),
                   ),
                 ),
@@ -126,7 +135,7 @@ class _HotelCardState extends State<HotelCard> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(12),
                   child: ElevatedButton(
                     onPressed: _isChecking
                         ? null
@@ -139,19 +148,23 @@ class _HotelCardState extends State<HotelCard> {
                       ),
                     ),
                     child: _isChecking
-                        ? const SizedBox(
+                        ? SizedBox(
                             height: 16,
                             width: 16,
-                            child: CircularProgressIndicator(),
+                            child: CircularProgressIndicator(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer,
+                            ),
                           )
                         : Text(
                             'Sprawdz dostępność od ${widget.checkInDate} do ${widget.checkOutDate}',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 13,
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context)
                                   .colorScheme
-                                  .onPrimaryContainer,
+                                  .onSecondaryContainer,
                             ),
                           ),
                   ),

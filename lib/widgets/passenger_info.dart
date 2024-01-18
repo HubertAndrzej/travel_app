@@ -147,16 +147,16 @@ class _PassengerInfoState extends State<PassengerInfo> {
           // ignore: use_build_context_synchronously
           backgroundColor: Theme.of(navigatorKey.currentState!.context)
               .colorScheme
-              .secondaryContainer,
+              .primaryContainer,
           duration: const Duration(seconds: 5),
           content: Text(
             'Płatność się udała i lot jest potwierdzony',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               // ignore: use_build_context_synchronously
               color: Theme.of(navigatorKey.currentState!.context)
                   .colorScheme
-                  .onSecondaryContainer,
+                  .onPrimaryContainer,
             ),
           ),
         ),
@@ -176,7 +176,7 @@ class _PassengerInfoState extends State<PassengerInfo> {
           Text(
             'Podsumowanie',
             style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
               fontSize: 20,
             ),
           ),
@@ -192,7 +192,7 @@ class _PassengerInfoState extends State<PassengerInfo> {
                       label: Text('Pełne imię i nazwisko pasażera'),
                     ),
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.onBackground,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
@@ -217,14 +217,28 @@ class _PassengerInfoState extends State<PassengerInfo> {
                   _formKey.currentState!.reset();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Theme.of(context).colorScheme.primaryContainer,
+                  backgroundColor: Theme.of(context).colorScheme.errorContainer,
                 ),
-                child: const Text('Wyczyść'),
+                child: Text(
+                  'Wyczyść',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onErrorContainer,
+                  ),
+                ),
               ),
               ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    Theme.of(context).colorScheme.primary,
+                  ),
+                ),
                 onPressed: _payForSelectedOption,
-                child: Text('Zapłać ${widget.currency} ${widget.total}'),
+                child: Text(
+                  'Zapłać ${widget.currency} ${widget.total}',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
               ),
             ],
           ),

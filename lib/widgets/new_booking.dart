@@ -61,11 +61,14 @@ class _NewBookingState extends State<NewBooking> {
             margin: const EdgeInsets.all(16),
             child: Stack(
               children: [
-                Image.asset(
-                  'assets/images/flight.jpg',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: 200,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                    'assets/images/flight.jpg',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 200,
+                  ),
                 ),
                 Positioned(
                   bottom: 16,
@@ -73,7 +76,12 @@ class _NewBookingState extends State<NewBooking> {
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        width: 2,
+                      ),
                     ),
                     child: GestureDetector(
                       onTap: _searchFlight,
@@ -82,7 +90,7 @@ class _NewBookingState extends State<NewBooking> {
                           Text(
                             'Loty',
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Theme.of(context).colorScheme.onPrimary,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -90,7 +98,7 @@ class _NewBookingState extends State<NewBooking> {
                           const SizedBox(width: 8),
                           Icon(
                             Icons.arrow_forward,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             size: 32,
                           ),
                         ],
@@ -107,11 +115,14 @@ class _NewBookingState extends State<NewBooking> {
             margin: const EdgeInsets.all(16),
             child: Stack(
               children: [
-                Image.asset(
-                  'assets/images/hotel.jpeg',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: 200,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                    'assets/images/hotel.jpeg',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 200,
+                  ),
                 ),
                 Positioned(
                   bottom: 16,
@@ -119,7 +130,12 @@ class _NewBookingState extends State<NewBooking> {
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        width: 2,
+                      ),
                     ),
                     child: GestureDetector(
                       onTap: _searchHotel,
@@ -128,7 +144,7 @@ class _NewBookingState extends State<NewBooking> {
                           Text(
                             'Hotele',
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Theme.of(context).colorScheme.onPrimary,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -136,7 +152,7 @@ class _NewBookingState extends State<NewBooking> {
                           const SizedBox(width: 8),
                           Icon(
                             Icons.arrow_forward,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             size: 32,
                           ),
                         ],

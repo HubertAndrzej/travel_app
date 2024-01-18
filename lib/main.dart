@@ -11,30 +11,30 @@ import 'package:travel_app/screens/splash_screen.dart';
 
 final colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
-  seedColor: Colors.lightBlue,
-  background: Colors.black,
+  seedColor: const Color.fromARGB(255, 247, 247, 247),
+  background: const Color.fromARGB(255, 181, 254, 131),
 );
 
 final theme = ThemeData().copyWith(
   scaffoldBackgroundColor: colorScheme.background,
   colorScheme: colorScheme,
-  textTheme: GoogleFonts.ubuntuCondensedTextTheme().copyWith(
-    titleSmall: GoogleFonts.ubuntuCondensed(
+  textTheme: TextTheme(
+    bodySmall: GoogleFonts.openSans(
       fontWeight: FontWeight.bold,
     ),
-    titleMedium: GoogleFonts.ubuntuCondensed(
+    bodyMedium: GoogleFonts.openSans(
       fontWeight: FontWeight.bold,
     ),
-    titleLarge: GoogleFonts.ubuntuCondensed(
+    bodyLarge: GoogleFonts.openSans(
       fontWeight: FontWeight.bold,
     ),
-    bodySmall: GoogleFonts.ubuntuCondensed(
+    titleSmall: GoogleFonts.openSans(
       fontWeight: FontWeight.bold,
     ),
-    bodyMedium: GoogleFonts.ubuntuCondensed(
+    titleMedium: GoogleFonts.openSans(
       fontWeight: FontWeight.bold,
     ),
-    bodyLarge: GoogleFonts.ubuntuCondensed(
+    titleLarge: GoogleFonts.openSans(
       fontWeight: FontWeight.bold,
     ),
   ),

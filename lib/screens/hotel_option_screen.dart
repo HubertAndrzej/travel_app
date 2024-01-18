@@ -27,7 +27,7 @@ class _HotelOptionScreenState extends State<HotelOptionScreen> {
   Widget build(BuildContext context) {
     void openHostNameInfo(String roomType, String currency, String total) {
       showModalBottomSheet(
-        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         useSafeArea: true,
         isScrollControlled: true,
         context: context,
@@ -60,29 +60,26 @@ class _HotelOptionScreenState extends State<HotelOptionScreen> {
       ),
       body: Column(
         children: [
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           Text(
             'Dostępne opcje dla hotelu:',
             style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
               fontSize: 16,
             ),
           ),
-          const SizedBox(
-            height: 16,
-          ),
-          Text(
-            widget.hotelName,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
-              fontSize: 20,
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Text(
+              widget.hotelName,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                fontSize: 20,
+              ),
             ),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 8),
           Expanded(
             child: ListView.builder(
               itemCount: widget.offers.length,
@@ -91,12 +88,24 @@ class _HotelOptionScreenState extends State<HotelOptionScreen> {
                 final room = offer['room'];
                 final price = offer['price'];
                 return Card(
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   margin: const EdgeInsets.all(8.0),
                   child: ListTile(
                     title: Text(
-                        'Typ pokoju: ${room['typeEstimated']['category']}'),
-                    subtitle:
-                        Text('Cena: ${price['currency']} ${price['total']}'),
+                      'Typ pokoju: ${room['typeEstimated']['category']}',
+                      style: TextStyle(
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
+                        fontSize: 14,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Cena: ${price['currency']} ${price['total']}',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        fontSize: 14,
+                      ),
+                    ),
                     trailing: ElevatedButton(
                       onPressed: () => openHostNameInfo(
                           room['typeEstimated']['category'],
@@ -104,7 +113,7 @@ class _HotelOptionScreenState extends State<HotelOptionScreen> {
                           price['total']),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                          Theme.of(context).colorScheme.primaryContainer,
+                          Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       child: Text(
@@ -112,8 +121,7 @@ class _HotelOptionScreenState extends State<HotelOptionScreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer,
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
                     ),

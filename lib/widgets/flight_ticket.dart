@@ -65,14 +65,19 @@ class _FlightTicketState extends State<FlightTicket> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         for (int i = 0; i < segments.length; i++)
-          Text(
-            segments[i],
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-              fontSize: 12,
-            ),
+          Column(
+            children: [
+              Text(
+                segments[i],
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 8),
+            ],
           ),
-        const SizedBox(height: 8),
       ],
     );
   }
@@ -81,12 +86,13 @@ class _FlightTicketState extends State<FlightTicket> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         title: Center(
           child: Text(
             'Informacje',
             style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -96,7 +102,7 @@ class _FlightTicketState extends State<FlightTicket> {
             Text(
               'PNR: ${flight.pnr}',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontSize: 16,
               ),
             ),
@@ -104,7 +110,7 @@ class _FlightTicketState extends State<FlightTicket> {
             Text(
               'Imię pasażera: ${flight.passenger}',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontSize: 16,
               ),
             ),
@@ -112,29 +118,41 @@ class _FlightTicketState extends State<FlightTicket> {
             Text(
               'Loty:',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontSize: 16,
               ),
             ),
             const SizedBox(height: 16),
             buildSegmentWidget(flight.segments),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             Text(
               'Cena:  ${flight.currency} ${flight.total}',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
             ),
           ],
         ),
         actions: [
-          TextButton(
+          ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
             },
-            child: const Text('Ok'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            child: Text(
+              'Ok',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+            ),
           ),
         ],
       ),
@@ -149,14 +167,14 @@ class _FlightTicketState extends State<FlightTicket> {
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.onPrimary,
+          color: Theme.of(context).colorScheme.onSecondaryContainer,
         ),
       ),
     );
     if (_isLoading) {
       content = Center(
         child: CircularProgressIndicator(
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: Theme.of(context).colorScheme.onSecondaryContainer,
         ),
       );
     }
@@ -167,6 +185,7 @@ class _FlightTicketState extends State<FlightTicket> {
           return Padding(
             padding: const EdgeInsets.all(8),
             child: Card(
+              color: Theme.of(context).colorScheme.onPrimary,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -177,7 +196,8 @@ class _FlightTicketState extends State<FlightTicket> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
                       ),
                     ),
                   ),
@@ -200,7 +220,7 @@ class _FlightTicketState extends State<FlightTicket> {
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context)
                                   .colorScheme
-                                  .onPrimaryContainer,
+                                  .onSecondaryContainer,
                             ),
                           ),
                         ),
