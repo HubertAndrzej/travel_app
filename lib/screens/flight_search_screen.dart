@@ -70,11 +70,11 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
-            'Bład w polu skąd',
+            'Błąd w polu skąd',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
-            'Miejsce wylotu musi mieć długość trzech znaków',
+            'Miejsce wylotu musi mieć długość dokładnie trzech znaków',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
@@ -103,11 +103,11 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
-            'Bład w polu dokąd',
+            'Błąd w polu dokąd',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
-            'Miejsce przylotu musi mieć długość trzech znaków',
+            'Miejsce przylotu musi mieć długość dokładnie trzech znaków',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
@@ -136,7 +136,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
-            'Bład w formularzu',
+            'Błąd w formularzu',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
@@ -169,7 +169,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
-            'Bład w polu wylot',
+            'Błąd w polu wylot',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
@@ -202,7 +202,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen> {
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
-            'Bład w formularzu',
+            'Błąd w formularzu',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(

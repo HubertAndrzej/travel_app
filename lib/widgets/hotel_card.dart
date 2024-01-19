@@ -76,7 +76,7 @@ class _HotelCardState extends State<HotelCard> {
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: Text(
-            'Hotel niedostępny w twoich datach',
+            'Hotel niedostępny w wybranym terminie',
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimaryContainer),
           ),

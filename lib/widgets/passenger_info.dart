@@ -196,7 +196,7 @@ class _PassengerInfoState extends State<PassengerInfo> {
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Pole nie może być puste.';
+                        return 'Pole nie może być puste';
                       }
                       return null;
                     },

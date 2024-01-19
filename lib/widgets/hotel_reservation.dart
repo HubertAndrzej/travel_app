@@ -221,7 +221,7 @@ class _HotelReservationState extends State<HotelReservation> {
                             ),
                           ),
                           child: Text(
-                            'Wiecej informacji',
+                            'Więcej informacji',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

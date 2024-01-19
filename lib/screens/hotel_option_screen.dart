@@ -64,7 +64,7 @@ class _HotelOptionScreenState extends State<HotelOptionScreen> {
           Text(
             'Dostępne opcje dla hotelu:',
             style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
+              color: Theme.of(context).colorScheme.onPrimary,
               fontSize: 16,
             ),
           ),

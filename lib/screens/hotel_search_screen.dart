@@ -64,11 +64,11 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
-            'Bład w polu miasto',
+            'Błąd w polu miasto',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
-            'Miasto musi mieć długość trzech znaków',
+            'Kod miasta musi mieć długość dokładnie trzech znaków',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           actions: [
@@ -95,7 +95,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
-            'Bład w polu od',
+            'Błąd w polu od',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
@@ -120,13 +120,13 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
       );
       return;
     }
-    if (_checkInDate == null) {
+    if (_checkOutDate == null) {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
-            'Bład w polu do',
+            'Błąd w polu do',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
@@ -157,7 +157,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
-            'Bład w formularzu',
+            'Błąd w formularzu',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(
@@ -188,7 +188,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen> {
         builder: (ctx) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.error,
           title: Text(
-            'Bład w formularzu',
+            'Błąd w formularzu',
             style: TextStyle(color: Theme.of(context).colorScheme.onError),
           ),
           content: Text(

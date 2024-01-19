@@ -214,7 +214,7 @@ class _FlightTicketState extends State<FlightTicket> {
                             ),
                           ),
                           child: Text(
-                            'Wiecej informacji',
+                            'Więcej informacji',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
